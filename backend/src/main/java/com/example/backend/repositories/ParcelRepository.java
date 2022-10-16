@@ -1,16 +1,8 @@
 package com.example.backend.repositories;
 
 import com.example.backend.entities.Parcel;
-import java.util.Collection;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ParcelRepository {
+public interface ParcelRepository extends JpaRepository<Parcel, Long> {
 
-  Collection<Parcel> findAll();
-
-  Parcel save(Parcel parcel);
-
-  Optional<Parcel> findById(Long id);
-
-  void deleteById(Long id);
 }
