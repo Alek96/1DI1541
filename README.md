@@ -2,6 +2,11 @@
 
 Repozytorium zawierające notatki z poszczególnych laboratoriów.
 
+## Database diagram
+
+![database diagram](images/db_diagram.png)
+
+
 ## Curl examples
 
 ### Get
