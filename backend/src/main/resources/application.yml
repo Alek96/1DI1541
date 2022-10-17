@@ -7,6 +7,22 @@ logging:
 spring:
   config:
     activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/backend
+    username: postgres
+    password: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL81Dialect
+    hibernate:
+      ddl-auto: update # (create, create-drop, validate, update)
+
+---
+
+spring:
+  config:
+    activate:
       on-profile: local
 
   h2:
