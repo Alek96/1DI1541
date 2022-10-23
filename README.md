@@ -6,6 +6,11 @@ Repozytorium zawierające notatki z poszczególnych laboratoriów.
 
 ![database diagram](images/db_diagram.png)
 
+## Docker compose
+
+```
+docker compose up --build
+```
 
 ## Curl examples
 

@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  backend:
+    container_name: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    image: backend:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+    ports:
+      - 8080:8080
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
