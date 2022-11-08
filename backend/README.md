@@ -18,10 +18,10 @@ the `checkstyle/codestyle/intellij-java-google-style.xml`. Finish it off by clic
 ./mvnw package
 ```
 
-# Running
+## Running
 
 ```
-java -jar target/*.jar
+java -jar -Dspring.profiles.active=dev target/*.jar
 ```
 
 # Docker

@@ -2,6 +2,10 @@ logging:
   level:
     com.example.backend: DEBUG
 
+app:
+  cors:
+    allowed-origins: http://localhost:3000
+
 ---
 
 spring:
@@ -34,4 +38,3 @@ spring:
     driverClassName: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-

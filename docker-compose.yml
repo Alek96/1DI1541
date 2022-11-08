@@ -10,7 +10,7 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/backend
     ports:
-      - 8080:8080
+      - '8080:8080'
     networks:
       - network
     depends_on:
