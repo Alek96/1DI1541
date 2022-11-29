@@ -61,8 +61,11 @@ services:
     ports:
       - '8080:8080'
     command: start-dev
+    networks:
+      - network
     depends_on:
-      - keycloak-db
+      keycloak-db:
+        condition: service_healthy
     healthcheck:
       test: "curl -f http://localhost:8080/admin || exit 1"
 
@@ -78,6 +81,8 @@ services:
       - '3306:3306'
     volumes:
       - keycloak_db:/var/lib/mysql
+    networks:
+      - network
     healthcheck:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
 
