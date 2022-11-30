@@ -1,1 +1,34 @@
+logging:
+  level:
+    com.example.backend: DEBUG
 
+app:
+  keycloak:
+    server-url: http://keycloak:8080
+    realm-name: app
+    clients:
+      -
+        id: frontend-web
+        redirect-url: http://localhost:3000/*
+    users:
+      -
+        username: admin
+        password: admin
+        roles:
+          - MANAGER
+      -
+        username: user
+        password: user
+        roles:
+          - USER
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+app:
+  keycloak:
+    server-url: http://localhost:8080

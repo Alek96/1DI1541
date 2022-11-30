@@ -46,6 +46,18 @@ services:
       timeout: 5s
       retries: 5
 
+  keycloak-initializer:
+    container_name: keycloakInitializer
+    build:
+      context: keycloakInitializer
+      dockerfile: Dockerfile
+    image: keycloakinitializer:latest
+    networks:
+      - network
+    depends_on:
+      keycloak:
+        condition: service_healthy
+
   keycloak:
     image: quay.io/keycloak/keycloak:20.0.1
     container_name: keycloak
