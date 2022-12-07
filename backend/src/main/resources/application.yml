@@ -2,9 +2,23 @@ logging:
   level:
     com.example.backend: DEBUG
 
+server:
+  port: 8081
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${app.jwt.issuer-uri}
+          jwk-set-uri: ${app.jwt.issuer-uri}/protocol/openid-connect/certs
+
 app:
   cors:
     allowed-origins: http://localhost:3000
+  jwt:
+    issuer-uri: http://localhost:8080/realms/app
+    resource-client-ids: frontend-web
 
 ---
 

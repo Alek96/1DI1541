@@ -47,3 +47,8 @@ docker build -t backend:latest .
 ```
 docker run -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=local" backend
 ```
+
+# Authentication
+
+[Oauth2 by Spring](https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html)  
+[Keycloak with Spring Boot by stackoverflow](https://stackoverflow.com/questions/74571191/use-keycloak-spring-adapter-with-spring-boot-3/74572732)
