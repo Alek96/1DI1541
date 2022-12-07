@@ -2,19 +2,21 @@ import React, {useEffect, useState} from 'react';
 import {Button, ButtonGroup, Container, Table} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {parcelsApi} from "../../api/parcelsApi";
+import {useKeycloak} from "@react-keycloak/web";
 
 export const ParcelPage = () => {
+  const {keycloak} = useKeycloak();
   const [parcels, setParcels] = useState([]);
 
   useEffect(() => {
-    parcelsApi.getAll()
+    parcelsApi.getAll(keycloak.token)
     .then((res) => {
       setParcels(res.data);
     })
   }, []);
 
   const remove = (id) => {
-    parcelsApi.delete(id)
+    parcelsApi.delete(id, keycloak.token)
     .then(() => {
       setParcels((parcels) => parcels.filter((parcel) => parcel.id !== id));
     });

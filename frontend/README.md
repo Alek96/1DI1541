@@ -33,4 +33,7 @@ docker run -p 3000:3000 frontend
 
 # Tutorials
 
-[React Router 6](https://www.robinwieruch.de/react-router/)
+[React Router 6](https://www.robinwieruch.de/react-router/)  
+[React Router 6: Authentication](https://www.robinwieruch.de/react-router-authentication/)  
+[React Router 6: Authentication](https://blog.logrocket.com/complete-guide-authentication-with-react-router-v6/)  
+[Keycloak authentication](https://blog.logrocket.com/implement-keycloak-authentication-react/)  

@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import {Button, Container, Form, FormGroup, Input, Label} from 'reactstrap';
 import {parcelsApi} from "../../api/parcelsApi";
+import {useKeycloak} from "@react-keycloak/web";
 
 export const ParcelForm = () => {
+  const {keycloak} = useKeycloak();
   const navigate = useNavigate();
   const {parcelId} = useParams();
   const [parcel, setParcel] = useState({
@@ -12,11 +14,12 @@ export const ParcelForm = () => {
 
   useEffect(() => {
     if (parcelId !== 'new') {
-      parcelsApi.getById(parcelId)
+      parcelsApi.getById(parcelId, keycloak.token)
       .then((res) => {
         setParcel(res.data);
       });
     }
+    keycloak.updateToken()
   }, [parcelId]);
 
   const handleChange = (event) => {
@@ -31,9 +34,9 @@ export const ParcelForm = () => {
     event.preventDefault();
 
     if (parcel.id) {
-      await parcelsApi.update(parcel.id, parcel)
+      await parcelsApi.update(parcel.id, parcel, keycloak.token)
     } else {
-      await parcelsApi.create(parcel)
+      await parcelsApi.create(parcel, keycloak.token)
     }
     navigate('/parcels')
   }
