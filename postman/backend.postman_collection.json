@@ -135,7 +135,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"id\":{{id}}, \"name\":\"Parcel v1.1\"}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{backend_url}}/parcels/:id",
@@ -157,8 +157,106 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "actuator",
+			"item": [
+				{
+					"name": "Actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend_url}}/actuator",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{backend_url}}/actuator/health",
+							"host": [
+								"{{backend_url}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "password_credentials",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "frontend-web",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "{{keycloak_url}}/realms/app/protocol/openid-connect/auth",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{keycloak_url}}/realms/app/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "http://localhost:3000",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "keycloak_token",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
