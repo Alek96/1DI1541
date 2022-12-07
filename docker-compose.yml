@@ -6,12 +6,10 @@ services:
       context: frontend
       dockerfile: Dockerfile
     image: frontend:latest
-    ports:
-      - '3000:3000'
-    networks:
-      - network
+    network_mode: host
     depends_on:
       - backend
+
   backend:
     container_name: backend
     build:
@@ -20,13 +18,11 @@ services:
     image: backend:latest
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/backend
-    ports:
-      - '8080:8080'
-    networks:
-      - network
+    network_mode: host
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+
   db:
     image: postgres:15.0-alpine
     restart: always
@@ -34,12 +30,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=backend
-    ports:
-      - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
-    networks:
-      - network
+    network_mode: host
     healthcheck:
       test: pg_isready -U postgres
       interval: 10s
@@ -52,8 +45,7 @@ services:
       context: keycloakInitializer
       dockerfile: Dockerfile
     image: keycloakinitializer:latest
-    networks:
-      - network
+    network_mode: host
     depends_on:
       keycloak:
         condition: service_healthy
@@ -65,16 +57,12 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_DB=mysql
-      - KC_DB_URL_HOST=keycloak-db
+      - KC_DB_URL_HOST=localhost
       - KC_DB_URL_DATABASE=keycloak
       - KC_DB_USERNAME=keycloak
       - KC_DB_PASSWORD=password
-#      - KC_HOSTNAME_PORT=8888
-    ports:
-      - '8080:8080'
     command: start-dev
-    networks:
-      - network
+    network_mode: host
     depends_on:
       keycloak-db:
         condition: service_healthy
@@ -89,18 +77,11 @@ services:
       - MYSQL_USER=keycloak
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=root
-    ports:
-      - '3306:3306'
     volumes:
       - keycloak_db:/var/lib/mysql
-    networks:
-      - network
+    network_mode: host
     healthcheck:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
-
-networks:
-  network:
-    driver: bridge
 
 volumes:
   db:
