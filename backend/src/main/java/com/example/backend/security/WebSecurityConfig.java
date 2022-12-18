@@ -18,7 +18,7 @@ public class WebSecurityConfig {
 
     // Route security: authenticated to all routes but actuator and Swagger-UI
     http.authorizeRequests()
-        .antMatchers("/actuator/health").permitAll()
+        .antMatchers("/actuator/health", "/parcels").permitAll()
         .anyRequest().authenticated();
 
     // Enable OAuth2 with custom authorities mapping
