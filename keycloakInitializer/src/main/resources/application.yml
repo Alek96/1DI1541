@@ -8,7 +8,7 @@ app:
     realm-name: app
     clients:
       - id: frontend-web
-        redirect-url: http://localhost:3000/*
+        redirect-url: http://127.0.0.1:3000/*
     users:
       - username: admin
         password: admin
@@ -28,4 +28,4 @@ spring:
 
 app:
   keycloak:
-    server-url: http://localhost:8080
+    server-url: http://127.0.0.1:8080

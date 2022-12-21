@@ -12,7 +12,7 @@ npm install
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://127.0.0.1:3000](http://127.0.0.1:3000) to view it in your browser.
 
 # Docker
 

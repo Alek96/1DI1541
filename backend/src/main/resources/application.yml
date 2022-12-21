@@ -15,9 +15,9 @@ spring:
 
 app:
   cors:
-    allowed-origins: http://localhost:3000
+    allowed-origins: http://127.0.0.1:3000
   jwt:
-    issuer-uri: http://localhost:8080/realms/app
+    issuer-uri: http://127.0.0.1:8080/realms/app
     resource-client-ids: frontend-web
 
 ---
@@ -48,7 +48,7 @@ spring:
       on-profile: local
 
   h2:
-    console.enabled: true # http://localhost:8080/h2-console
+    console.enabled: true # http://127.0.0.1:8080/h2-console
   datasource:
     url: jdbc:h2:mem:db
     username: sa
