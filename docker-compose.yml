@@ -6,7 +6,10 @@ services:
       context: frontend
       dockerfile: Dockerfile
     image: frontend:latest
-    network_mode: host
+    ports:
+      - '3000:3000'
+    networks:
+      - network
     depends_on:
       - backend
 
@@ -18,9 +21,14 @@ services:
     image: backend:latest
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-    network_mode: host
+    ports:
+      - '8081:8081'
+    networks:
+      - network
     depends_on:
       db:
+        condition: service_healthy
+      keycloak:
         condition: service_healthy
 
   db:
@@ -32,7 +40,10 @@ services:
       - POSTGRES_DB=backend
     volumes:
       - db:/var/lib/postgresql/data
-    network_mode: host
+    ports:
+      - '5432:5432'
+    networks:
+      - network
     healthcheck:
       test: pg_isready -U postgres
       interval: 10s
@@ -45,7 +56,8 @@ services:
       context: keycloakInitializer
       dockerfile: Dockerfile
     image: keycloakinitializer:latest
-    network_mode: host
+    networks:
+      - network
     depends_on:
       keycloak:
         condition: service_healthy
@@ -57,12 +69,15 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_DB=mysql
-      - KC_DB_URL_HOST=localhost
+      - KC_DB_URL_HOST=keycloak-db
       - KC_DB_URL_DATABASE=keycloak
       - KC_DB_USERNAME=keycloak
       - KC_DB_PASSWORD=password
     command: start-dev
-    network_mode: host
+    ports:
+      - '8080:8080'
+    networks:
+      - network
     depends_on:
       keycloak-db:
         condition: service_healthy
@@ -79,9 +94,16 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - keycloak_db:/var/lib/mysql
-    network_mode: host
+    ports:
+      - '3306:3306'
+    networks:
+      - network
     healthcheck:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
+
+networks:
+  network:
+    driver: bridge
 
 volumes:
   db:
