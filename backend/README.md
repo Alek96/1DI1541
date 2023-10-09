@@ -18,3 +18,15 @@ Apply style. Under `File` -> `Settings` -> `Editor` -> `Code Style` -> `Java`, c
 next
 to Scheme. Click on `import Scheme` -> `IntelliJ IDEa code style XML` and select
 the `checkstyle/codestyle/intellij-java-google-style.xml`. Finally, click on `Apply`.
+
+# Building
+
+```
+./mvnw package
+```
+
+# Running
+
+```
+java -jar target/*.jar
+```
