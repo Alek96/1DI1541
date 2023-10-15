@@ -1,3 +1,10 @@
+springdoc:
+  swagger-ui:
+    tryItOutEnabled: true
+    operationsSorter: method
+    tagsSorter: alpha
+    filter: true
+
 logging:
   level:
     com.example.backend: DEBUG
