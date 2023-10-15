@@ -1,7 +1,9 @@
 package com.example.backend.controllers;
 
-import com.example.backend.entities.Note;
+import com.example.backend.dto.NoteDto;
+import com.example.backend.dto.Views;
 import com.example.backend.services.NoteService;
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -36,7 +38,8 @@ public class NoteController {
       description = "Get all Note objects.",
       tags = {"get"})
   @GetMapping
-  public Collection<Note> findAll() {
+  @JsonView(Views.Get.class)
+  public Collection<NoteDto> findAll() {
     log.debug("Find all notes");
     return noteService.findAll();
   }
@@ -48,7 +51,7 @@ public class NoteController {
   @ApiResponse(
       responseCode = "200",
       content = {
-          @Content(schema = @Schema(implementation = Note.class), mediaType = "application/json")})
+          @Content(schema = @Schema(implementation = NoteDto.class), mediaType = "application/json")})
   @ApiResponse(
       responseCode = "404",
       content = {@Content(schema = @Schema())})
@@ -56,7 +59,8 @@ public class NoteController {
       responseCode = "500",
       content = {@Content(schema = @Schema())})
   @GetMapping("/{id}")
-  public Note findById(
+  @JsonView(value = Views.Get.class)
+  public NoteDto findById(
       @Parameter(description = "Note Id.", example = "1")
       @PathVariable Long id) {
     log.debug("Find note with id: {}", id);
@@ -69,8 +73,9 @@ public class NoteController {
       tags = {"post"})
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Note create(
-      @RequestBody Note note) {
+  @JsonView(value = Views.Get.class)
+  public NoteDto create(
+      @RequestBody @JsonView(value = Views.Post.class) NoteDto note) {
     log.debug("Create note: {}", note);
     return noteService.create(note);
   }
@@ -80,10 +85,11 @@ public class NoteController {
       description = "Update a Note object by specifying its id.",
       tags = {"put"})
   @PutMapping("/{id}")
-  public Note update(
+  @JsonView(value = Views.Get.class)
+  public NoteDto update(
       @Parameter(description = "Note Id.", example = "1")
       @PathVariable Long id,
-      @RequestBody Note note) {
+      @RequestBody @JsonView(value = Views.Put.class) NoteDto note) {
     log.debug("Update note with id: {}, with note {}", id, note);
     return noteService.update(id, note);
   }
