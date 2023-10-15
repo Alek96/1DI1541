@@ -1,16 +1,8 @@
 package com.example.backend.repositories;
 
 import com.example.backend.entities.Note;
-import java.util.Collection;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface NoteRepository {
+public interface NoteRepository extends JpaRepository<Note, Long> {
 
-  Collection<Note> findAll();
-
-  Note save(Note note);
-
-  Optional<Note> findById(Long id);
-
-  void deleteById(Long id);
 }

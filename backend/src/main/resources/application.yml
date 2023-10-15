@@ -2,3 +2,19 @@ logging:
   level:
     com.example.backend: DEBUG
 
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  h2:
+    console.enabled: true # http://localhost:8080/h2-console
+  datasource:
+    url: jdbc:h2:mem:db
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
