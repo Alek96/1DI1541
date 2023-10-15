@@ -24,33 +24,38 @@ public class NoteController {
 
   private final NoteService noteService;
 
-  @PostMapping
-  @ResponseStatus(HttpStatus.CREATED)
-  Note create(@RequestBody Note note) {
-    log.debug("Create note: {}", note);
-    return noteService.save(note);
-  }
-
   @GetMapping
-  Collection<Note> findAll() {
+  public Collection<Note> findAll() {
     log.debug("Find all notes");
     return noteService.findAll();
   }
 
   @GetMapping("/{id}")
-  Note findById(@PathVariable Long id) {
+  public Note findById(
+      @PathVariable Long id) {
     log.debug("Find note with id: {}", id);
     return noteService.findById(id);
   }
 
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public Note create(
+      @RequestBody Note note) {
+    log.debug("Create note: {}", note);
+    return noteService.create(note);
+  }
+
   @PutMapping("/{id}")
-  Note update(@PathVariable Long id, @RequestBody Note note) {
+  public Note update(
+      @PathVariable Long id,
+      @RequestBody Note note) {
     log.debug("Update note with id: {}, with note {}", id, note);
     return noteService.update(id, note);
   }
 
   @DeleteMapping("/{id}")
-  void deleteEmployee(@PathVariable Long id) {
+  public void deleteEmployee(
+      @PathVariable Long id) {
     log.debug("Delete note with id: {}", id);
     noteService.deleteById(id);
   }

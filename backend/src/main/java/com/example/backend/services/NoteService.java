@@ -19,17 +19,17 @@ public class NoteService {
     return noteRepo.findAll();
   }
 
-  public Note save(Note note) {
+  public Note findById(Long id) {
+    return noteRepo.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Note not found"));
+  }
+
+  public Note create(Note note) {
     if (note.getId() != null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Provide note without id");
     }
 
     return noteRepo.save(note);
-  }
-
-  public Note findById(Long id) {
-    return noteRepo.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Note not found"));
   }
 
   public Note update(Long id, Note note) {
