@@ -1,0 +1,13 @@
+services:
+  backend:
+    build: backend
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+    ports:
+      - 8080:8080
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
