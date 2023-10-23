@@ -33,6 +33,30 @@ the `checkstyle/codestyle/intellij-java-google-style.xml`. Finally, click on `Ap
 java -jar target/*.jar
 ```
 
+# Docker
+
+[Tutorial by Spring](https://spring.io/guides/topicals/spring-boot-docker/)  
+[Spring Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#container-images.dockerfiles)  
+[Tutorial by Docker blog](https://www.docker.com/blog/kickstart-your-spring-boot-application-development/)
+
+## Build by build plugin
+
+```
+./mvnw spring-boot:build-image
+```
+
+## Build by dockerfile
+
+```
+docker build -t backend:latest .
+```
+
+## Running
+
+```
+docker run -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=local" backend
+```
+
 # How to use
 
 ## Swagger
