@@ -30,7 +30,7 @@ the `checkstyle/codestyle/intellij-java-google-style.xml`. Finally, click on `Ap
 ## Running
 
 ```
-java -jar target/*.jar
+java -jar -Dspring.profiles.active=dev target/*.jar
 ```
 
 # Docker
