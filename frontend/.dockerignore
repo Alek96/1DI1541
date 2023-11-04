@@ -2,5 +2,6 @@
 !public
 !src
 !.env
+!nginx.conf
 !package.json
 !package-lock.json
