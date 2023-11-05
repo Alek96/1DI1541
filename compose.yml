@@ -5,15 +5,23 @@ services:
       - '3000:3000'
     networks:
       - network
+    depends_on:
+      backend:
+        condition: service_healthy
 
   backend:
     build: backend
     environment:
       - SPRING_PROFILES_ACTIVE=dev
     ports:
-      - 8080:8080
+      - '8080:8080'
     networks:
       - network
+    healthcheck:
+      test: wget -qO- http://localhost:8080/actuator/health | grep '"status":"UP"' || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 10
     depends_on:
       db:
         condition: service_healthy
