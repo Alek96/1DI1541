@@ -18,9 +18,9 @@ management:
   endpoint:
     health:
       enabled: true
-      group:
-        details:
-          show-details: "always"
+      show-details: "when-authorized"
+      roles:
+        - "ADMIN"
     info:
       enabled: true
   info:
