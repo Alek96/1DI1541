@@ -43,12 +43,50 @@
   "quickLoginCheckMilliSeconds": 1000,
   "maxDeltaTimeSeconds": 43200,
   "failureFactor": 30,
+  "users": [
+    {
+      "username": "user",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "user"
+        }
+      ],
+      "realmRoles": [
+        "USER"
+      ]
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin"
+        }
+      ],
+      "realmRoles": [
+        "USER",
+        "ADMIN"
+      ]
+    }
+  ],
   "roles": {
     "realm": [
       {
         "id": "71406ba4-b126-4a87-ada7-701f03c5baba",
         "name": "uma_authorization",
         "description": "${role_uma_authorization}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "c77e05bc-6501-4528-978b-2b670ba451fb",
+        "attributes": {}
+      },
+      {
+        "id": "6b3f2ed1-8a6f-4c8a-8caa-1adda4f8ad54",
+        "name": "USER",
+        "description": "User privileges",
         "composite": false,
         "clientRole": false,
         "containerId": "c77e05bc-6501-4528-978b-2b670ba451fb",
@@ -83,9 +121,19 @@
         "clientRole": false,
         "containerId": "c77e05bc-6501-4528-978b-2b670ba451fb",
         "attributes": {}
+      },
+      {
+        "id": "07369233-bbea-4ca3-9824-889116495299",
+        "name": "ADMIN",
+        "description": "Admin privileges",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "c77e05bc-6501-4528-978b-2b670ba451fb",
+        "attributes": {}
       }
     ],
     "client": {
+      "frontend-web": [],
       "realm-management": [
         {
           "id": "b4a0f446-18aa-47bd-8274-79e7d3595d0b",
@@ -649,6 +697,58 @@
       ]
     },
     {
+      "id": "83dcb0d2-f5c0-4825-bc62-745837521a8b",
+      "clientId": "frontend-web",
+      "name": "Frontend application",
+      "description": "Note frontend application",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "/*"
+      ],
+      "webOrigins": [
+        "/*"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "NOTES",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
       "id": "894b8ed5-390a-4668-a4b5-97e5e4c1a5ec",
       "clientId": "realm-management",
       "name": "${client_realm-management}",
@@ -784,6 +884,18 @@
           }
         }
       ]
+    },
+    {
+      "id": "615a31e6-fdc4-495c-8e0f-98403f070565",
+      "name": "NOTES",
+      "description": "Notes scope",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "gui.order": "",
+        "consent.screen.text": ""
+      }
     },
     {
       "id": "2380a097-8649-4a85-b3d3-ee608086b171",
