@@ -22,4 +22,7 @@ public class NoteDto {
   @Schema(description = "Note text", example = "Some text")
   @JsonView({Views.Get.class, Views.Put.class, Views.Post.class})
   String text;
+
+  @JsonView({Views.Get.class})
+  String createdBy;
 }
