@@ -89,3 +89,8 @@ curl -v -X PUT  localhost:8080/notes/1 -H 'Content-type:application/json' -d '{"
 ```
 curl -v -X DELETE  localhost:8080/notes/1
 ```
+
+# Authentication
+
+[Oauth2 by Spring](https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html)  
+[Keycloak with Spring Boot by stackoverflow](https://stackoverflow.com/questions/74571191/use-keycloak-spring-adapter-with-spring-boot-3/74572732)

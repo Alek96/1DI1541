@@ -1,4 +1,4 @@
-package com.example.backend.configurations;
+package com.example.backend.security;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;

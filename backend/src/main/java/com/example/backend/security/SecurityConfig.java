@@ -1,5 +1,6 @@
-package com.example.backend.configurations;
+package com.example.backend.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,13 +11,29 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http,
-      CorsConfigurationSource corsConfigurationSource) throws Exception {
+  private final KeycloakJwtTokenConverter jwtTokenConverter;
+  private final CorsConfigurationSource corsConfigurationSource;
 
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
+        // Secure all routes but actuator and Swagger-UI
+        .authorizeHttpRequests(authorize -> authorize
+            .requestMatchers(
+                "/actuator/health",
+                "/swagger-ui/**",
+                "/v3/api-docs/**").permitAll()
+            .anyRequest().authenticated()
+        )
+
+        // Enable OAuth2 with custom authorities mapping
+        .oauth2ResourceServer(oauth2 -> oauth2
+            .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtTokenConverter))
+        )
+
         // Enable and configure CORS
         .cors(cors -> cors.configurationSource(corsConfigurationSource))
 

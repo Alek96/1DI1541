@@ -1,3 +1,12 @@
+spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${app.jwt.issuer-uri}
+          jwk-set-uri: ${app.jwt.issuer-uri}/protocol/openid-connect/certs
+#          public-key-location: classpath:keycloak-key.pub
+
 management:
   endpoints:
     enabled-by-default: false
@@ -36,6 +45,11 @@ springdoc:
 app:
   cors:
     allowed-origins: http://localhost:3000
+  jwt:
+    keycloak: http://localhost:8443
+    realm: app
+    issuer-uri: ${app.jwt.keycloak}/realms/${app.jwt.realm}
+    resource-client-id: frontend-web
 
 logging:
   level:
@@ -57,6 +71,10 @@ spring:
     hibernate:
       ddl-auto: update # (create, create-drop, validate, update)
 
+app:
+  jwt:
+    keycloak: http://keycloak:8443
+
 ---
 
 spring:
@@ -65,7 +83,7 @@ spring:
       on-profile: local
 
   h2:
-    console.enabled: true # http://localhost:8080/h2-console
+    console.enabled: false # http://localhost:8080/h2-console
   datasource:
     url: jdbc:h2:mem:db
     username: sa
