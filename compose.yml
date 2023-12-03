@@ -8,6 +8,8 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+      keycloak:
+        condition: service_started
 
   backend:
     build: backend
@@ -25,6 +27,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      keycloak:
+        condition: service_started
 
   db:
     image: postgres:16.0-alpine
@@ -45,10 +49,51 @@ services:
       timeout: 5s
       retries: 5
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=mysql
+      - KC_DB_URL_HOST=keycloak-db
+      - KC_DB_URL_DATABASE=keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=password
+    ports:
+      - '8443:8443'
+    networks:
+      - network
+    command:
+      - "start-dev"
+      - "--http-port=8443"
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+
+  keycloak-db:
+    image: mysql:8.2
+    container_name: keycloak-db
+    environment:
+      - MYSQL_DATABASE=keycloak
+      - MYSQL_USER=keycloak
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - keycloak_db:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    networks:
+      - network
+    healthcheck:
+      test: mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}
+
 networks:
   network:
     driver: bridge
 
 volumes:
   db:
+    driver: local
+  keycloak_db:
     driver: local
