@@ -709,10 +709,10 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/*"
+        "http://localhost:3000/*"
       ],
       "webOrigins": [
-        "/*"
+        "+"
       ],
       "notBefore": 0,
       "bearerOnly": false,
