@@ -48,4 +48,8 @@ docker run -p 3000:3000 frontend
 # Tutorials
 
 [React Router 6](https://www.robinwieruch.de/react-router/)  
-[Axios for React CRUD HTTP Client](https://www.bezkoder.com/react-spring-boot-crud/)
+[Axios for React CRUD HTTP Client](https://www.bezkoder.com/react-spring-boot-crud/)  
+[React Router 6: Authentication](https://www.robinwieruch.de/react-router-authentication/)  
+[React Router 6: Authentication](https://blog.logrocket.com/complete-guide-authentication-with-react-router-v6/)  
+[Keycloak authentication (old)](https://blog.logrocket.com/implement-keycloak-authentication-react/)  
+[Keycloak authentication (new)](https://medium.com/javarevisited/using-keycloak-to-secure-a-full-stack-web-app-implemented-with-spring-boot-and-react-6b2d80fc5c12)  

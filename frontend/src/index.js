@@ -5,14 +5,19 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { AuthProvider } from 'react-oidc-context'
+import { OidcConfig } from './components/OidcConfig'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
 root.render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>
+  <AuthProvider {...OidcConfig}>
+    <StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StrictMode>
+  </AuthProvider>
 )
 
 // If you want to start measuring performance in your app, pass a function

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { Button, ButtonGroup, Container, Table } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { notesApi } from '../../api/notesApi'
+import { useAuth } from 'react-oidc-context'
 
 export const NotesPage = () => {
+  const auth = useAuth()
+  const accessToken = auth.user.access_token
   const [notes, setNotes] = useState([])
 
   useEffect(() => {
-    notesApi.getAll()
+    notesApi.getAll(accessToken)
       .then((res) => {
         setNotes(res.data)
       })
@@ -15,7 +18,7 @@ export const NotesPage = () => {
   }, [])
 
   const remove = (id) => {
-    notesApi.delete(id)
+    notesApi.delete(id, accessToken)
       .then(() => {
         setNotes((notes) => notes.filter((note) => note.id !== id))
       })
@@ -27,6 +30,7 @@ export const NotesPage = () => {
         <td style={{ whiteSpace: 'nowrap' }}>{note.id}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{note.title}</td>
         <td style={{ whiteSpace: 'nowrap' }}>{note.text}</td>
+        <td style={{ whiteSpace: 'nowrap' }}>{note.createdBy}</td>
         <td align='center'>
           <ButtonGroup>
             <Button size='sm' color='primary' tag={Link} to={'/notes/' + note.id}>
@@ -51,6 +55,7 @@ export const NotesPage = () => {
               <th width='80px'>Id</th>
               <th>Title</th>
               <th>Text</th>
+              <th>Created By</th>
               <th width='120px'>
                 <div align='center'>Action</div>
               </th>

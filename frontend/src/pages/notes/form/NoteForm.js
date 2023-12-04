@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap'
 import { notesApi } from '../../../api/notesApi'
+import { useAuth } from 'react-oidc-context'
 
 export const NoteForm = () => {
+  const auth = useAuth()
+  const accessToken = auth.user.access_token
   const navigate = useNavigate()
   const { noteId } = useParams()
   const [note, setNote] = useState({
@@ -13,7 +16,7 @@ export const NoteForm = () => {
 
   useEffect(() => {
     if (noteId !== 'new') {
-      notesApi.getById(noteId)
+      notesApi.getById(noteId, accessToken)
         .then((res) => {
           setNote(res.data)
         })
@@ -32,9 +35,9 @@ export const NoteForm = () => {
     event.preventDefault()
 
     if (note.id) {
-      await notesApi.update(note.id, note)
+      await notesApi.update(note.id, note, accessToken)
     } else {
-      await notesApi.create(note)
+      await notesApi.create(note, accessToken)
     }
     navigate('/notes')
   }
