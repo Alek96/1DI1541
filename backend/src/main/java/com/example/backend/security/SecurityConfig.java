@@ -24,6 +24,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(
                 "/actuator/health",
+                "/notes",
                 "/swagger-ui/**",
                 "/v3/api-docs/**").permitAll()
             .anyRequest().authenticated()

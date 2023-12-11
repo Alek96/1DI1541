@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Mobile</string>
+    <string name="notes">Notes</string>
+    <string name="note_id"><![CDATA[<id>]]></string>
+    <string name="note_title"><![CDATA[<title>]]></string>
+    <string name="note_text"><![CDATA[<text>]]></string>
+    <string name="note_created_by"><![CDATA[<createdBy>]]></string>
 </resources>
